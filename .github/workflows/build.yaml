@@ -31,6 +31,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
+          token: ${{ secrets.TOKEN }}
           path: obs
 
       - name: Prepare Git
@@ -41,7 +42,7 @@ jobs:
       - name: Prepare OSC
         run: echo "${{ secrets.CONFIG }}" | base64 -d > oscrc
 
-      - name: Fetch release version
+      - name: Update OBS package
         run: ./obs/.github/workflow.sh "${{ matrix.package }}" "${{ matrix.package }}"
 
       - name: Launch carrier pigeons

@@ -31,7 +31,7 @@ get_package_version() {
 }
 
 get_package_source() {
-	sed -e '/^Source0:/!d' -e 's/.*:\s*//' "obs/${1}/${1}.spec"
+	sed -e '/^Source0:/!d' -e 's/.*:\s\+//' "obs/${1}/${1}.spec"
 }
 
 get_latest_release() {
@@ -43,17 +43,17 @@ install_osc () {
 }
 
 checkout_obs_package() {
-	osc --config oscrc co home:scheatkode "${1}"
+	osc --config "${PWD}/oscrc" co home:scheatkode "${1}"
 }
 
 sync_changes_to_obs() {
-	rm -f "home:scheatkode/${1}"/*.tar.gz || true
-	cp -f "obs/${1}/${1}.spec" "home:scheatkode/${1}/"
-	cp -f ./*.tar.gz "home:scheatkode/${1}/"
-
 	cd home:scheatkode
-	osc --config oscrc addremove
-	osc --config oscrc ci -m "Bump ${1} to ${2}" "${1}"
+	osc --config "../oscrc" remove "${1}"/*.tar.gz || true
+
+	cp -f "../obs/${1}/${1}.spec" ../*.tar.gz "${1}/"
+
+	osc --config "../oscrc" add "${1}"/*
+	osc --config "../oscrc" ci -m "Bump ${1} to ${2}" "${1}"
 	cd -
 }
 
