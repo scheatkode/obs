@@ -39,7 +39,7 @@ get_latest_release() {
 }
 
 install_osc () {
-	apt-get update && apt-get install osc
+	sudo apt-get update && sudo apt-get install osc
 }
 
 checkout_obs_package() {
