@@ -42,7 +42,7 @@ jobs:
         run: echo "${{ secrets.CONFIG }}" | base64 -d > oscrc
 
       - name: Fetch release version
-        run: ./obs/.github/workflow.sh
+        run: ./obs/.github/workflow.sh "${{ matrix.package }}" "${{ matrix.package }}"
 
       - name: Launch carrier pigeons
         run: ./obs/.github/launch_pigeon.sh
