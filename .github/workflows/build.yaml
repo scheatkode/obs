@@ -26,6 +26,7 @@ jobs:
       matrix:
         package:
           - dbeaver
+          - neovim
 
     steps:
       - name: Checkout repository
