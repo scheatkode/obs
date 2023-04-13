@@ -84,7 +84,7 @@ main() {
 	old="$(get_package_version "${package}")"
 
 	# Nothing to do, version is up to date.
-	semver_lte "${new}" "${old}" || return 0
+	semver_lte "${new}" "${old}" && return 0
 
 	install_osc
 
