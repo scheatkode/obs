@@ -2,6 +2,7 @@
 
 set -e
 set -u
+set -x
 
 semver_lte() {
 	printf '%s\n%s' "${1}" "${2}" | sort -C -V
