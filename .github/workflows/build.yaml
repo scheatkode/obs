@@ -1,0 +1,49 @@
+---
+name: Build
+
+on:
+  # Trigger run daily
+  schedule:
+    - cron: 0 0 * * *
+
+  # Trigger run manually
+  workflow_dispatch:
+
+  # Trigger run on push to master
+  push:
+    branches:
+      - master
+
+
+jobs:
+  build:
+    name: Build packages
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: true
+      matrix:
+        package:
+          - dbeaver
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          path: obs
+
+      - name: Prepare Git
+        run: |
+          git config --global user.name "${{ secrets.USERNAME }}"
+          git config --global user.email "${{ secrets.EMAIL }}"
+
+      - name: Prepare OSC
+        run: echo "${{ secrets.CONFIG }}" | base64 -d > oscrc
+
+      - name: Fetch release version
+        run: ./obs/.github/workflow.sh
+
+      - name: Launch carrier pigeons
+        run: ./obs/.github/launch_pigeon.sh
+...
