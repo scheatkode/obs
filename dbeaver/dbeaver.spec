@@ -27,7 +27,7 @@ Source0:        https://github.com/%{name}/%{name}/releases/download/%{version}/
 BuildRequires:  fastjar
 BuildRequires:  fdupes
 BuildRequires:  update-desktop-files
-Requires:       java >= 11
+Requires:       java >= 17
 ExclusiveArch:  %{ix86} x86_64
 
 %description
