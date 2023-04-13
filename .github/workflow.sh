@@ -2,7 +2,6 @@
 
 set -e
 set -u
-set -x
 
 semver_lte() {
 	printf '%s\n%s' "${1}" "${2}" | sort -C -V
@@ -20,7 +19,7 @@ retry() {
 	shift
 
 	for _ in $(seq 1 "${attempts}"); do
-		ret="$(eval "${*}")" && echo "${ret}" && break
+		ret="$(eval "${*}")" && echo "${ret}" && return 0
 		sleep "${delay}"
 	done
 
