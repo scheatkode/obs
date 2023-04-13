@@ -10,7 +10,7 @@ semver_lte() {
 random_bounded() {
 	# This will be running on a GitHub actions runner, we don't really care
 	# that much for POSIX-compliance.
-	echo "$(( "$(od -An -N1 -tu1 /dev/urandom)" % "${1}" ))"
+	echo "$(( $(od -An -N1 -tu1 /dev/urandom) % ${1} ))"
 }
 
 retry() {
