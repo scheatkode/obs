@@ -115,12 +115,6 @@ parts of Vim, without compromise, and more.
 
 install -p -m 0755 %{SOURCE10} .
 
-# Remove __DATE__ and __TIME__.
-BUILD_TIME=$(LC_ALL=C date -ur %{_sourcedir}/%{name}.changes +'%{H}:%{M}')
-BUILD_DATE=$(LC_ALL=C date -ur %{_sourcedir}/%{name}.changes +'%{b} %{d} %{Y}')
-sed -i "s/__TIME__/\"$BUILD_TIME\"/" $(grep -rl '__TIME__')
-sed -i "s/__DATE__/\"$BUILD_DATE\"/" $(grep -rl '__DATE__')
-
 %build
 # set vars to make build reproducible in spite of config/CMakeLists.txt
 HOSTNAME=OBS

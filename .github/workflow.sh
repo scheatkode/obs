@@ -58,7 +58,7 @@ sync_changes_to_obs() {
 	cd home:scheatkode
 	osc --config "../oscrc" remove "${1}"/*.tar.gz || true
 
-	cp -f "../obs/${1}/${1}.spec" ../*.tar.gz "${1}/"
+	cp -f "../obs/${1}"/* ../*.tar.gz "${1}/"
 
 	osc --config "../oscrc" add "${1}"/*
 	osc --config "../oscrc" ci -m "Bump ${1} to ${2}" "${1}"
