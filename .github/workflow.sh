@@ -35,7 +35,15 @@ get_package_source() {
 }
 
 get_latest_release() {
-	curl -sL "https://api.github.com/repos/${1}/${2}/releases/latest" | jq -r ".tag_name"
+	curl -sL "https://api.github.com/repos/${1}/${2}/tags" \
+		| jq -r '
+			map(select(
+				.name | test("^v?([0-9]|[1-9][0-9]*)\\.([0-9]|[1-9][0-9]*)\\.([0-9]|[1-9][0-9]*)")
+			))
+			| first
+			| .name
+			' \
+		| sed 's/^v//'
 }
 
 install_osc () {
