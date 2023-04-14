@@ -26,7 +26,7 @@
 %define luaver 5.1
 %define luaver_nopoint 51
 Name:           neovim
-Version:        0.9.0
+Version:        0.8.3
 Release:        0
 Summary:        Vim-fork focused on extensibility and agility
 License:        Apache-2.0 AND Vim
@@ -128,14 +128,16 @@ export CXXFLAGS="%{optflags} -fcommon"
        -DLUA_PRG=%{_bindir}/%{?with_luajit:luajit}%{!?with_luajit:lua} \
 %if %{with luajit}
        -DBUSTED_PRG="$(readlink -f ../lj-busted.sh)" \
+       -DLUAJIT_INCLUDE_DIR:PATH=%{_includedir}/luajit-5_1-2.1 \
+%else
+       -DLUA_INCLUDE_DIR:PATH=%{lua_incdir} \
 %endif
-       -DUSE_BUNDLED=OFF -DLUAJIT_USE_BUNDLED=ON  \
-       -DCMAKE_SKIP_RPATH=ON -DCMAKE_VERBOSE_MAKEFILE=ON \
-       -DUSE_BUNDLED=OFF -DLUAJIT_USE_BUNDLED=OFF \
+       -DUSE_BUNDLED=OFF \
+       -DCMAKE_SKIP_RPATH=ON \
+       -DCMAKE_VERBOSE_MAKEFILE=ON \
        -DCMAKE_COLOR_MAKEFILE=OFF \
        -DCMAKE_C_FLAGS_RELWITHDEBINFO="$opts" \
-       -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
-       -DLUA_INCLUDE_DIR:PATH=%{lua_incdir}
+       -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix}
 %make_build
 
 popd
