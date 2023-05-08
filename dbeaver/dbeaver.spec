@@ -17,7 +17,7 @@
 
 
 Name:           dbeaver
-Version:        23.0.3
+Version:        23.0.4
 Release:        0
 Summary:        Universal Database Manager
 License:        Apache-2.0
